@@ -1,6 +1,7 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
 import { Navbar } from './components/Navbar'
+import PostsPage from './pages/PostsPage'
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
                 <h2>Welcome to the Redux Essentials example app!</h2>
               </section>
             }
-          ></Route>
+          />
+          <Route path='/posts' element={<PostsPage />} />
         </Routes>
       </div>
     </Router>
