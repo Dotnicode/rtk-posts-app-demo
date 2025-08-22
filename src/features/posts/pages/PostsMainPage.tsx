@@ -1,5 +1,5 @@
-import { AddPostForm } from "@/features/posts/AddPostForm";
-import PostsList from "@/features/posts/PostsList";
+import { AddPostForm } from "../components/AddPostForm";
+import PostsList from "../components/PostsList";
 
 export default function PostsMainPage() {
   return (
