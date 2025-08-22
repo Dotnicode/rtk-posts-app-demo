@@ -1,7 +1,8 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
 import { Navbar } from './components/Navbar'
-import PostsPage from './pages/PostsPage'
+import PostsMainPage from './features/posts/PostsMainPage'
+import { SinglePostPage } from './features/posts/SinglePostPage'
 
 function App() {
   return (
@@ -9,15 +10,8 @@ function App() {
       <Navbar />
       <div className="App">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <section>
-                <h2>Welcome to the Redux Essentials example app!</h2>
-              </section>
-            }
-          />
-          <Route path='/posts' element={<PostsPage />} />
+          <Route path='/' element={<PostsMainPage />} />
+          <Route path='/posts/:postId' element={<SinglePostPage />} />
         </Routes>
       </div>
     </Router>
