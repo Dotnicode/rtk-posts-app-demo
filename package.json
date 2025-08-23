@@ -1,5 +1,6 @@
 {
-  "name": "redux-essentials-example",
+  "name": "rtk-posts-app-demo",
+  "description": "Base on Redux Toolkit Essentials tutorial from https://redux.js.org/tutorials/essentials/",
   "version": "2.0.0",
   "private": true,
   "dependencies": {
