@@ -1,11 +1,13 @@
-import { useAppDispatch } from '@/app/hooks'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { nanoid } from '@reduxjs/toolkit'
 import React from 'react'
 import { postAdded } from '@/features/posts/postsSlice'
+import { selectAllUsers } from '@/features/users/usersSlice'
 
 interface AddPostFormFields extends HTMLFormControlsCollection {
   postTitle: HTMLInputElement
   postContent: HTMLTextAreaElement
+  postAuthor: HTMLSelectElement
 }
 
 interface AddPostFormElements extends HTMLFormElement {
@@ -14,6 +16,7 @@ interface AddPostFormElements extends HTMLFormElement {
 
 export const AddPostForm = () => {
   const dispatch = useAppDispatch()
+  const users = useAppSelector(selectAllUsers)
 
   const handleSumbit = (e: React.FormEvent<AddPostFormElements>) => {
     e.preventDefault()
@@ -21,11 +24,18 @@ export const AddPostForm = () => {
     const { elements } = e.currentTarget
     const title = elements.postTitle.value
     const content = elements.postContent.value
+    const userId = elements.postAuthor.value
 
-    dispatch(postAdded(title, content))
+    dispatch(postAdded(title, content, userId))
 
     e.currentTarget.reset()
   }
+
+  const usersOptions = users.map((user) => (
+    <option key={user.id} value={user.id}>
+      {user.name}
+    </option>
+  ))
 
   return (
     <section>
@@ -33,6 +43,12 @@ export const AddPostForm = () => {
       <form onSubmit={handleSumbit}>
         <label htmlFor="postTitle">Post Title:</label>
         <input type="text" id="postTitle" name="postTitle" required />
+
+        <label htmlFor="postAuthor">Author:</label>
+        <select id="postAuthor" name="postAuthor" required>
+          <option value="">Select an author</option>
+          {usersOptions}
+        </select>
 
         <label htmlFor="postContent">Content:</label>
         <textarea id="postContent" name="postContent" defaultValue="" required />
