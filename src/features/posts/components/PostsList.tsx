@@ -2,6 +2,7 @@ import { useAppSelector } from '@/app/hooks'
 import { Link } from 'react-router-dom'
 import { selectAllPosts } from '../postsSlice'
 import { PostAuthor } from './PostAuthor'
+import { ReactionButtons } from './ReactionButtons'
 import TimeAgo from './TimeAgo'
 
 export default function PostsList() {
@@ -18,6 +19,7 @@ export default function PostsList() {
       <TimeAgo timestamp={post.date} />
 
       <p className="post-content">{post.content.substring(0, 100)}</p>
+      <ReactionButtons post={post} />
     </article>
   ))
 
