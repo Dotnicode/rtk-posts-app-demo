@@ -27,11 +27,15 @@ export const LoginPage = () => {
     navigate('/posts')
   }
 
-  if (users.length === 0) {
+  if (users.status === 'loading') {
     return <Spinner />
   }
 
-  const usersOptions = users.map((user) => (
+  if (users.status === 'failed') {
+    return <p>Error loading users!</p>
+  }
+
+  const usersOptions = users.users.map((user) => (
     <option key={user.id} value={user.id}>
       {user.name}
     </option>
