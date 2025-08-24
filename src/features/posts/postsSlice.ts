@@ -1,8 +1,8 @@
+import { client } from '@/api/client'
 import { RootState } from '@/app/store'
+import { createAppAsyncThunk } from '@/app/withTypes'
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
 import { userLoggedOut } from '../auth/authSlice'
-import { createAppAsyncThunk } from '@/app/withTypes'
-import { client } from '@/api/client'
 
 export interface Reactions {
   thumbsUp: number
@@ -24,6 +24,7 @@ export interface Post {
 }
 
 type PostUpdate = Pick<Post, 'id' | 'title' | 'content'>
+type NewPost = Pick<Post, 'title' | 'content' | 'user'>
 
 interface PostsState {
   posts: Post[]
@@ -59,27 +60,15 @@ export const fetchPosts = createAppAsyncThunk(
   },
 )
 
+export const addNewPost = createAppAsyncThunk('posts/addNewPost', async (initialPost: NewPost) => {
+  const response = await client.post<Post>('/fakeApi/posts', initialPost)
+  return response.data
+})
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postAdded: {
-      reducer(state, action: PayloadAction<Post>) {
-        state.posts.push(action.payload)
-      },
-      prepare(title: string, content: string, userId: string): { payload: Post } {
-        return {
-          payload: {
-            id: nanoid(),
-            title,
-            content,
-            user: userId,
-            date: new Date().toISOString(),
-            reactions: initialReactions,
-          },
-        }
-      },
-    },
     postUpdated: (state, action: PayloadAction<PostUpdate>) => {
       const { id, title, content } = action.payload
       const existingPost = state.posts.find((post) => post.id === id)
@@ -112,6 +101,9 @@ const postsSlice = createSlice({
         state.status = 'failed'
         state.error = action.error.message ?? 'Unknown error'
       })
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        state.posts.push(action.payload)
+      })
   },
 })
 
@@ -121,5 +113,5 @@ export const selectPostsById = (state: RootState, postId: string) =>
 export const selectPostsStatus = (state: RootState) => state.posts.status
 export const selectPostsError = (state: RootState) => state.posts.error
 
-export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions
+export const { postUpdated, reactionAdded } = postsSlice.actions
 export default postsSlice.reducer

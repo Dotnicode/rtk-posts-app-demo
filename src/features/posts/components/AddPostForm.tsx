@@ -1,9 +1,8 @@
-import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import { nanoid } from '@reduxjs/toolkit'
 import React from 'react'
-import { postAdded } from '@/features/posts/postsSlice'
-import { selectAllUsers } from '@/features/users/usersSlice'
+
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { selectCurrentUsername } from '@/features/auth/authSlice'
+import { addNewPost } from '../postsSlice'
 
 interface AddPostFormFields extends HTMLFormControlsCollection {
   postTitle: HTMLInputElement
@@ -16,19 +15,29 @@ interface AddPostFormElements extends HTMLFormElement {
 }
 
 export const AddPostForm = () => {
-  const dispatch = useAppDispatch()
-  const userId = useAppSelector(selectCurrentUsername)!
+  const [addRequestStatus, setAddRequestStatus] = React.useState<'idle' | 'pending'>('idle')
 
-  const handleSumbit = (e: React.FormEvent<AddPostFormElements>) => {
+  const dispatch = useAppDispatch()
+  const user = useAppSelector(selectCurrentUsername)!
+
+  const handleSumbit = async (e: React.FormEvent<AddPostFormElements>) => {
     e.preventDefault()
 
     const { elements } = e.currentTarget
     const title = elements.postTitle.value
     const content = elements.postContent.value
 
-    dispatch(postAdded(title, content, userId))
+    const form = e.currentTarget
 
-    e.currentTarget.reset()
+    try {
+      setAddRequestStatus('pending')
+      await dispatch(addNewPost({ title, content, user })).unwrap()
+      form.reset()
+    } catch (error) {
+      console.error('Failed to save the post: ', error)
+    } finally {
+      setAddRequestStatus('idle')
+    }
   }
 
   return (
@@ -41,7 +50,7 @@ export const AddPostForm = () => {
         <label htmlFor="postContent">Content:</label>
         <textarea id="postContent" name="postContent" defaultValue="" required />
 
-        <button>Save Post</button>
+        <button disabled={addRequestStatus === 'pending'}>Save Post</button>
       </form>
     </section>
   )
