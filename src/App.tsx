@@ -4,6 +4,7 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-d
 import { Navbar } from './components/Navbar'
 import { selectCurrentUsername } from './features/auth/auth.slice'
 import { LoginPage } from './features/auth/pages/LoginPage'
+import { NotificationsList } from './features/notifications/components/NotificationsList'
 import { EditPostForm } from './features/posts/components/EditPostForm'
 import PostsMainPage from './features/posts/pages/PostsMainPage'
 import { SinglePostPage } from './features/posts/pages/SinglePostPage'
@@ -34,6 +35,7 @@ function App() {
                   <Route path="/editPost/:postId" element={<EditPostForm />} />
                   <Route path="/users" element={<UsersList />} />
                   <Route path="/users/:userId" element={<UserPage />} />
+                  <Route path="/notifications" element={<NotificationsList />} />
                 </Routes>
               </ProtectedRoute>
             }

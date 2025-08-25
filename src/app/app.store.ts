@@ -1,4 +1,5 @@
 import authReducer from '@/features/auth/auth.slice'
+import notificationsReducer from '@/features/notifications/notification.slice'
 import postsReducer from '@/features/posts/posts.slice'
 import usersReducer from '@/features/users/users.slice'
 import { configureStore, ThunkAction } from '@reduxjs/toolkit'
@@ -8,6 +9,7 @@ export const store = configureStore({
     auth: authReducer,
     posts: postsReducer,
     users: usersReducer,
+    notifications: notificationsReducer,
   },
 })
 

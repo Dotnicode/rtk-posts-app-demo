@@ -18,13 +18,13 @@ export const SinglePostPage = () => {
     )
   }
 
-  const canEdit = currentUsername === post.userId
+  const canEdit = currentUsername === post.user
 
   return (
     <section>
       <article className="post">
         <h2>{post.title}</h2>
-        <PostAuthor userId={post.userId} />
+        <PostAuthor userId={post.user} />
         <p className="post-content">{post.content}</p>
         {canEdit && (
           <Link to={`/editPost/${post.id}`} className="button">

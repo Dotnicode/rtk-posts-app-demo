@@ -18,13 +18,13 @@ export interface Post {
   id: string
   title: string
   content: string
-  userId: string
+  user: string
   date: string
   reactions: Reactions
 }
 
 type PostUpdate = Pick<Post, 'id' | 'title' | 'content'>
-type NewPost = Pick<Post, 'title' | 'content' | 'userId'>
+type NewPost = Pick<Post, 'title' | 'content' | 'user'>
 
 interface PostsState {
   posts: Post[]
@@ -60,8 +60,9 @@ export const fetchPosts = createAppAsyncThunk(
   },
 )
 
-export const addNewPost = createAppAsyncThunk('posts/addNewPost', async (initialPost: NewPost) => {
-  const response = await client.post<Post>('/fakeApi/posts', initialPost)
+export const addNewPost = createAppAsyncThunk('posts/addNewPost', async (newPost: NewPost) => {
+  console.log(newPost)
+  const response = await client.post<Post>('/fakeApi/posts', newPost)
   return response.data
 })
 
@@ -114,7 +115,7 @@ export const selectAllPosts = (state: RootState) => state.posts.posts
 export const selectPostsById = (state: RootState, postId: string) =>
   state.posts.posts.find((post) => post.id === postId)
 export const selectPostsByUser = (state: RootState, userId: string) => {
-  return state.posts.posts.filter((post) => post.userId === userId)
+  return state.posts.posts.filter((post) => post.user === userId)
 }
 
 export const selectPostsStatus = (state: RootState) => state.posts.status
