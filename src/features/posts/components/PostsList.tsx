@@ -18,7 +18,7 @@ function PostExcerpt({ post }: PostExcerptProps) {
         <Link to={`/posts/${post.id}`}>{post.title}</Link>
       </h3>
 
-      <PostAuthor userId={post.user} />
+      <PostAuthor userId={post.userId} />
       <TimeAgo timestamp={post.date} />
 
       <p className="post-content">{post.content.substring(0, 100)}</p>

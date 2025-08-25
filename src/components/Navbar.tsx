@@ -1,8 +1,9 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { useAppDispatch, useAppSelector } from '@/app/app.hooks'
 import { userLoggedOut } from '@/features/auth/auth.slice'
 import { selectCurrentUser } from '@/features/users/users.slice'
-import React from 'react'
-import { Link } from 'react-router-dom'
 import { UserIcon } from './UserIcon'
 
 export const Navbar = () => {
@@ -22,6 +23,7 @@ export const Navbar = () => {
       <div className="navContent">
         <div className="navLinks">
           <Link to="/posts">Posts</Link>
+          <Link to="/users">Users</Link>
         </div>
         <div className="userDetails">
           <UserIcon size={32} />

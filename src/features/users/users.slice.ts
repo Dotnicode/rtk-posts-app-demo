@@ -1,7 +1,7 @@
 import { client } from '@/api/client'
 import type { RootState } from '@/app/app.store'
 import { createAppAsyncThunk } from '@/app/app.types'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { selectCurrentUsername } from '../auth/auth.slice'
 
 interface User {

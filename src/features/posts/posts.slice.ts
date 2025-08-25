@@ -18,13 +18,13 @@ export interface Post {
   id: string
   title: string
   content: string
-  user: string
+  userId: string
   date: string
   reactions: Reactions
 }
 
 type PostUpdate = Pick<Post, 'id' | 'title' | 'content'>
-type NewPost = Pick<Post, 'title' | 'content' | 'user'>
+type NewPost = Pick<Post, 'title' | 'content' | 'userId'>
 
 interface PostsState {
   posts: Post[]
@@ -107,11 +107,15 @@ const postsSlice = createSlice({
   },
 })
 
+export default postsSlice.reducer
+export const { postUpdated, reactionAdded } = postsSlice.actions
+
 export const selectAllPosts = (state: RootState) => state.posts.posts
 export const selectPostsById = (state: RootState, postId: string) =>
   state.posts.posts.find((post) => post.id === postId)
+export const selectPostsByUser = (state: RootState, userId: string) => {
+  return state.posts.posts.filter((post) => post.userId === userId)
+}
+
 export const selectPostsStatus = (state: RootState) => state.posts.status
 export const selectPostsError = (state: RootState) => state.posts.error
-
-export const { postUpdated, reactionAdded } = postsSlice.actions
-export default postsSlice.reducer
