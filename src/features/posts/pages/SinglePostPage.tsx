@@ -1,9 +1,9 @@
-import { useAppSelector } from '@/app/hooks'
+import { useAppSelector } from '@/app/app.hooks'
 import { Link, useParams } from 'react-router-dom'
-import { selectPostsById } from '../postsSlice'
-import { PostParams } from '../types/postParams'
+import { selectPostsById } from '../posts.slice'
+import { PostParams } from '../types/post-params.type'
 import { PostAuthor } from '../components/PostAuthor'
-import { selectCurrentUsername } from '@/features/auth/authSlice'
+import { selectCurrentUsername } from '@/features/auth/auth.slice'
 
 export const SinglePostPage = () => {
   const { postId } = useParams<PostParams>()

@@ -1,5 +1,5 @@
-import { useAppSelector } from '@/app/hooks'
-import { selectUserById } from '@/features/users/usersSlice'
+import { useAppSelector } from '@/app/app.hooks'
+import { selectUserById } from '@/features/users/users.slice'
 import React from 'react'
 
 interface PostAuthorProps {

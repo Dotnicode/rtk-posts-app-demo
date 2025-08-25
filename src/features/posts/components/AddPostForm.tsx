@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import { selectCurrentUsername } from '@/features/auth/authSlice'
-import { addNewPost } from '../postsSlice'
+import { useAppDispatch, useAppSelector } from '@/app/app.hooks'
+import { selectCurrentUsername } from '@/features/auth/auth.slice'
+import { addNewPost } from '../posts.slice'
 
 interface AddPostFormFields extends HTMLFormControlsCollection {
   postTitle: HTMLInputElement

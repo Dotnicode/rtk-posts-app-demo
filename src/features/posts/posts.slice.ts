@@ -1,8 +1,8 @@
 import { client } from '@/api/client'
-import { RootState } from '@/app/store'
-import { createAppAsyncThunk } from '@/app/withTypes'
+import { RootState } from '@/app/app.store'
+import { createAppAsyncThunk } from '@/app/app.types'
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
-import { userLoggedOut } from '../auth/authSlice'
+import { userLoggedOut } from '../auth/auth.slice'
 
 export interface Reactions {
   thumbsUp: number

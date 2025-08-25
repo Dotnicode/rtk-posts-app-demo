@@ -1,9 +1,9 @@
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
 import React from 'react'
-import { useAppSelector } from './app/hooks'
+import { useAppSelector } from './app/app.hooks'
 import { Navbar } from './components/Navbar'
-import { selectCurrentUsername } from './features/auth/authSlice'
+import { selectCurrentUsername } from './features/auth/auth.slice'
 import { LoginPage } from './features/auth/pages/LoginPage'
 import { EditPostForm } from './features/posts/components/EditPostForm'
 import PostsMainPage from './features/posts/pages/PostsMainPage'

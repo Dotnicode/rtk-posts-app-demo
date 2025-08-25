@@ -1,10 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from '@/app/hooks'
+import { useAppDispatch, useAppSelector } from '@/app/app.hooks'
 import { Spinner } from '@/components/Spinner'
-import { selectAllUsers } from '@/features/users/usersSlice'
-import { userLoggedIn } from '../authSlice'
+import { selectAllUsers } from '@/features/users/users.slice'
+import { userLoggedIn } from '../auth.slice'
 
 interface LoginPageFormFields extends HTMLFormControlsCollection {
   username: HTMLSelectElement

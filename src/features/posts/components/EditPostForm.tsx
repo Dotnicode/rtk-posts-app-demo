@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector } from '@/app/hooks'
+import { useAppDispatch, useAppSelector } from '@/app/app.hooks'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { postUpdated, selectPostsById } from '../postsSlice'
-import { PostParams } from '../types/postParams'
+import { postUpdated, selectPostsById } from '../posts.slice'
+import { PostParams } from '../types/post-params.type'
 
 interface EditPostFormFields extends HTMLFormControlsCollection {
   id: HTMLInputElement

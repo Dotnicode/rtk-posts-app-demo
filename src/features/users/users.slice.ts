@@ -1,8 +1,8 @@
 import { client } from '@/api/client'
-import type { RootState } from '@/app/store'
-import { createAppAsyncThunk } from '@/app/withTypes'
+import type { RootState } from '@/app/app.store'
+import { createAppAsyncThunk } from '@/app/app.types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { selectCurrentUsername } from '../auth/authSlice'
+import { selectCurrentUsername } from '../auth/auth.slice'
 
 interface User {
   id: string

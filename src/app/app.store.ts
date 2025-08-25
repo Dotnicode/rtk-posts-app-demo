@@ -1,6 +1,6 @@
-import authReducer from '@/features/auth/authSlice'
-import postsReducer from '@/features/posts/postsSlice'
-import usersReducer from '@/features/users/usersSlice'
+import authReducer from '@/features/auth/auth.slice'
+import postsReducer from '@/features/posts/posts.slice'
+import usersReducer from '@/features/users/users.slice'
 import { configureStore, ThunkAction } from '@reduxjs/toolkit'
 
 export const store = configureStore({
