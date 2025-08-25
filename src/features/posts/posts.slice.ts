@@ -2,7 +2,7 @@ import { client } from '@/api/client'
 import { RootState } from '@/app/app.store'
 import { createAppAsyncThunk } from '@/app/app.types'
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
-import { userLoggedOut } from '../auth/auth.slice'
+import { logout } from '../auth/auth.slice'
 
 export interface Reactions {
   thumbsUp: number
@@ -87,7 +87,7 @@ const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(userLoggedOut, (state) => {
+      .addCase(logout.fulfilled, (state) => {
         return initialState
       })
       .addCase(fetchPosts.pending, (state, action) => {
