@@ -1,24 +1,36 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
+import classnames from 'classnames'
 
-import { useAppSelector } from '@/app/app.hooks'
+import { useAppDispatch, useAppSelector } from '@/app/app.hooks'
 import { PostAuthor } from '@/features/posts/components/PostAuthor'
 import TimeAgo from '@/features/posts/components/TimeAgo'
-import { selectAllNotifications } from '../notification.slice'
+import { allNotificationsRead, selectAllNotifications } from '../notification.slice'
 
 export const NotificationsList = () => {
+  const dispatch = useAppDispatch()
   const notifications = useAppSelector(selectAllNotifications)
 
-  const renderedNotifications = notifications.map((notification) => (
-    <div key={notification.id} className="notification">
-      <div>
-        <b>
-          <PostAuthor userId={notification.user} showPrefix={false} />
-        </b>
-        {notification.message}
+  useLayoutEffect(() => {
+    dispatch(allNotificationsRead())
+  })
+
+  const renderedNotifications = notifications.map((notification) => {
+    const notificationClassname = classnames('notification', {
+      new: notification.isNew,
+    })
+
+    return (
+      <div key={notification.id} className={notificationClassname}>
+        <div>
+          <b>
+            <PostAuthor userId={notification.user} showPrefix={false} />
+          </b>
+          {notification.message}
+        </div>
+        <TimeAgo timestamp={notification.date} />
       </div>
-      <TimeAgo timestamp={notification.date} />
-    </div>
-  ))
+    )
+  })
 
   return (
     <section className="notificationsList">
