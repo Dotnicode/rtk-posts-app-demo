@@ -10,17 +10,13 @@ export interface ServerNotification {
   user: string
 }
 
-export const fetchNotifications = createAppAsyncThunk(
-  'notifications/fetchNotificactions',
-  async (_unused, thunkApi) => {
-    const allNotifications = selectAllNotifications(thunkApi.getState())
-    const [lastestNotification] = allNotifications
-    const latestTimestamp = lastestNotification ? lastestNotification.date : ''
-    const response = await client.get<ServerNotification[]>(`/fakeApi/notifications?since=${latestTimestamp}`)
-
-    return response.data
-  },
-)
+export const fetchNotifications = createAppAsyncThunk('notifications/fetchNotifications', async (_unused, thunkApi) => {
+  const allNotifications = selectAllNotifications(thunkApi.getState())
+  const [latestNotification] = allNotifications
+  const latestTimestamp = latestNotification ? latestNotification.date : ''
+  const response = await client.get<ServerNotification[]>(`/fakeApi/notifications?since=${latestTimestamp}`)
+  return response.data
+})
 
 const initialState: ServerNotification[] = []
 

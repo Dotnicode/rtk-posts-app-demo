@@ -31,7 +31,7 @@ export const Navbar = () => {
           <Link to="/users">Users</Link>
           <Link to="/notifications">Notifications</Link>
 
-          <button className="button small" onClick={fetchNotifications}>
+          <button className="button small" onClick={fetchNewNotifications}>
             Refresh Notifications
           </button>
         </div>
